@@ -5,6 +5,7 @@ import com.example.YpStorage.model.User;
 import com.example.YpStorage.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +19,11 @@ import java.util.Collections;
 public class UserService implements UserDetailsService {
     @Autowired
     private final UserRepository userRepository;
-    PasswordEncoder passwordEncoder;
+    private  PasswordEncoder passwordEncoder;
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     @Transactional
@@ -34,7 +39,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void createUser(User user) {
-        user.setPassword(user.getPassword());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setUsername(user.getUsername());
         user.setEmail(user.getEmail());
         user.setRoles(Collections.singleton(Role.USER));

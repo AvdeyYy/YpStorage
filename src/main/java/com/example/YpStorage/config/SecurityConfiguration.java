@@ -1,6 +1,5 @@
 package com.example.YpStorage.config;
-import com.example.YpStorage.service.UserService;
-import lombok.RequiredArgsConstructor;
+import com.example.YpStorage.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,8 +27,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/registration", "/home").permitAll()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/registration").permitAll()
+                        .anyRequest().authenticated()
                 )
 
                 .formLogin(form -> form
@@ -54,3 +53,4 @@ public class SecurityConfiguration {
     }
 
 }
+

@@ -23,7 +23,7 @@ public class MinioRepository {
     @Value("${minio.bucket-name}")
     private String bucketName;
 
-    public void uploadFile(MultipartFile[] multipartFiles) {
+    public void uploadObject(MultipartFile[] multipartFiles) {
         try {
             for (MultipartFile file : multipartFiles) {
                 InputStream inputStream = new ByteArrayInputStream(file.getBytes());
@@ -41,8 +41,7 @@ public class MinioRepository {
         }
     }
 
-    public void createEmptyFolder(String folderName) {
-        String objectName = StringUtils.join(UserUtils.getUserId(),folderName,"/");
+    public void createEmptyFolder(String objectName) {
         try {
             minioClient.putObject(PutObjectArgs.builder()
                     .bucket(bucketName)
@@ -55,7 +54,7 @@ public class MinioRepository {
 
     }
 
-    public List<ObjectDto> getListsObjects() {
+    public List<ObjectDto> getListObjects() {
         var path = UserUtils.getUserId();
         List<ObjectDto> objectDtoList = new ArrayList<>();
         try {
@@ -70,7 +69,6 @@ public class MinioRepository {
                 long size = result.size();
                 ObjectDto objectDto = new ObjectDto(name,fullPath,size);
                 objectDtoList.add(objectDto);
-                System.out.println(objectDto.getName() + objectDto.getFilePath() + objectDto.getFileSize());
             }
         } catch (Exception e) {
             e.printStackTrace();

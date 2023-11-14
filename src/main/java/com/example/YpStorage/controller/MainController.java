@@ -22,9 +22,9 @@ public class MainController {
     @Autowired
     private final MinioRepository minioRepository;
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String index(Model model) {
-        List<ObjectDto> objectDtoList = minioService.getListsObjects();
+        List<ObjectDto> objectDtoList = minioService.getListObjects();
         model.addAttribute("objects", objectDtoList);
         return "main";
     }

@@ -5,6 +5,7 @@ import com.example.YpStorage.repository.MinioRepository;
 import com.example.YpStorage.service.MinioService;
 import com.example.YpStorage.util.UserUtils;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,17 +20,18 @@ public class MinioServiceImpl implements MinioService {
 
     @Override
     public void uploadFile(MultipartFile[] multipartFiles) {
-        minioRepository.uploadFile(multipartFiles);
+        minioRepository.uploadObject(multipartFiles);
     }
 
     @Override
     public void createEmptyFolder(String folderName) {
-        minioRepository.createEmptyFolder(folderName);
+        String objectName = StringUtils.join(UserUtils.getUserId(),folderName,"/");
+        minioRepository.createEmptyFolder(objectName);
     }
 
     @Override
-    public List<ObjectDto> getListsObjects() {
-        return minioRepository.getListsObjects();
+    public List<ObjectDto> getListObjects() {
+        return minioRepository.getListObjects();
     }
 
     @Override
@@ -40,7 +42,6 @@ public class MinioServiceImpl implements MinioService {
     @Override
     public void downloadObject(String path) {
         minioRepository.downloadObject(path);
-
     }
 
     @Override

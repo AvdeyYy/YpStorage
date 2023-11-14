@@ -20,12 +20,12 @@ public class MinioFolderController {
     @PostMapping("/upload-emptyFolder")
     public String uploadFolder(String folderName){
         minioService.createEmptyFolder(folderName);
-        return "redirect:/";
+        return "redirect:/home";
     }
     @PostMapping("/uploadFolder")
     public String uploadFolder(@RequestParam("file")MultipartFile[] files){
         minioService.uploadFile(files);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
 }

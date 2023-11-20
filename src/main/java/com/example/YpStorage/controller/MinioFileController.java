@@ -18,25 +18,25 @@ public class MinioFileController {
     @PostMapping("/upload")
     public String uploadFile(@RequestParam("file") MultipartFile[] file) {
         minioService.uploadFile(file);
-        return "redirect:/home";
+        return "redirect:/";
     }
     @PostMapping("/remove")
     public String removeObject(@RequestParam ("objectName") String objectName) {
         minioService.removeObject(objectName);
-        return "redirect:/home";
+        return "redirect:/";
     }
 
 
     @GetMapping("/download")
     public String downloadObject(@RequestParam String objectName) {
         minioService.downloadObject(objectName);
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @PostMapping("/rename")
     public String renameObject (@RequestParam("pastPath") String pastPath, @RequestParam("futurePath") String futurePath) {
         minioService.renameObject(pastPath,futurePath);
-        return "redirect:/home";
+        return "redirect:/";
     }
 
 }

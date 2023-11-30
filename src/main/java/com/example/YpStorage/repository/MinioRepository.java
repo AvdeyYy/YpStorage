@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,27 +55,63 @@ public class MinioRepository {
 
     }
 
-    public List<ObjectDto> getListObjects() {
-        var path = UserUtils.getUserId();
+//2
+//    public List<ObjectDto> getListObjects(String path) {
+//        String username = UserUtils.getUserId() + path;
+//        Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder()
+//                        .bucket(bucketName)
+//                        .prefix(username)
+//                        .build());
+//        List<ObjectDto> objectDtoList = new ArrayList<>();
+//        results.forEach( itemResult -> {
+//            try {
+//                Item item = itemResult.get();
+//                System.out.println();
+//                ObjectDto objectDto = new ObjectDto(
+//                        username,
+//                        item.isDir(),
+//                        MinioUtils.removePrefix(item.objectName(),username),
+//                        MinioUtils.getFileName(path),
+//                        item.objectName()
+//                );
+//                objectDtoList.add(objectDto);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+//        return objectDtoList;
+//    }
+
+    public List<ObjectDto> getListObjects(String subdir) {
+         String username = UserUtils.getUserId();
+         if (subdir != null) {
+             username = subdir;
+         }
+
+        Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder()
+                .bucket(bucketName)
+                .prefix(username)
+                .recursive(false)
+                .build());
         List<ObjectDto> objectDtoList = new ArrayList<>();
-        try {
-            var itemList = minioClient.listObjects(ListObjectsArgs.builder()
-                    .bucket(bucketName)
-                    .prefix(path)
-                    .build());
-            for (var item : itemList) {
-                Item result = item.get();
-                String name = result.objectName();
-                String fullPath = MinioUtils.cutStart(name);
-                long size = result.size();
-                ObjectDto objectDto = new ObjectDto(name,fullPath,size);
-                objectDtoList.add(objectDto);
+        results.forEach( itemResult -> {
+            try {
+                Item item = itemResult.get();
+                objectDtoList.add(ObjectDto.builder()
+                                .name(MinioUtils.getName(item.objectName()))
+                                .path(item.objectName())
+                                .isDir(item.isDir())
+                        .build()
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        });
         return objectDtoList;
     }
+
+
+
 
     public void removeObject(String path) {
         try {

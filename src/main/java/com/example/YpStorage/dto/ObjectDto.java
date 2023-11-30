@@ -1,16 +1,22 @@
 package com.example.YpStorage.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
 public class ObjectDto {
+    //1
+//    private String owner;
+//    private boolean isDir;
+//    private String fileName;
+//    private String filePath;
+//    private String originalName;
     private String name;
-    private String filePath;
-    private long fileSize;
+    private String path;
+    private boolean isDir;
 
-    public ObjectDto(String name, String filePath, long fileSize) {
-        this.name = name;
-        this.filePath = filePath;
-        this.fileSize = fileSize;
-    }
 }

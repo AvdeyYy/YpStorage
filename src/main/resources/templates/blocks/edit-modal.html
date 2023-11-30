@@ -11,20 +11,21 @@
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form th:action="@{/remove}" th:method="POST">
-                    <input name="objectName" th:value="${el.name}" type="hidden">
-                    <input type="submit" value="remove">
-                </form>
-                <form th:action="@{/download}" th:method="GET">
-                    <input name="objectName" th:value="${el.name}" type="hidden">
-                    <input type="submit" value="download">
-                </form>
-                <form th:action="@{/rename}" th:method="POST">
-                    <input name="pastPath" th:value="${el.name}" type="hidden">
-                    <input name="futurePath" type="text">
-                    <input type="submit" value="rename">
-                </form>
+<!--            <div class="modal-body">-->
+<!--                <form th:action="@{/remove}" th:method="POST">-->
+<!--                    <input name="objectName" th:value="${el.originalName}" type="hidden">-->
+<!--                    <input type="submit" value="remove">-->
+<!--                </form>-->
+<!--                <form th:action="@{/download}" th:method="GET">-->
+<!--                    <input name="objectName" th:value="${el.originalName}" type="hidden">-->
+<!--                    <input type="submit" value="download">-->
+<!--                </form>-->
+<!--                <form th:action="@{/rename}" th:method="POST">-->
+<!--                    <input name="pastPath" th:value="${el.originalName}" type="hidden">-->
+<!--                    <input name="futurePath" type="text">-->
+<!--                    <input type="submit" value="rename">-->
+<!--                </form>-->
+<!--            </div>-->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

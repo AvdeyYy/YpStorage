@@ -8,7 +8,7 @@ import java.util.List;
 public interface MinioService {
     void uploadFile(MultipartFile[] multipartFiles );
     void createEmptyFolder(String folderName);
-    List<ObjectDto> getListObjects();
+    List<ObjectDto> getListObjects(String subdir);
     void removeObject(String path);
     void downloadObject(String path);
     void renameObject(String pastPath, String futurePath);

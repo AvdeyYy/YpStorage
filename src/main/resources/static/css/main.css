@@ -1,3 +1,133 @@
 .mrg {
 margin: 50px auto;
 }
+
+
+html{
+    height: 100%;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.header{
+    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+    flex: 0 0 auto;
+}
+.main{
+    /* 1 flex-grow, 0 flex-shrink, auto flex-basis */
+    flex: 1 0 auto;
+}
+.footer{
+    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
+    flex: 0 0 auto;
+}
+.navbar .nav-link{
+    color: #fff;
+}
+.login-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+.form-container .row{
+    justify-content: center;
+}
+.user-files{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px 0;
+}
+.file-item{
+    width: 20%;
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+.file-item .form-check{
+    position: absolute;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    display: none;
+}
+.user-files.active .file-item .form-check {
+    border: solid 1px #ccc;
+    display: block;
+}
+.user-files.active .file-item.deleteItem .form-check{
+    display: block;
+    background: url("/static/img/icons8-done-48.png");
+    background-size: contain;
+}
+#from__create__folder{
+    display: none;
+}
+#from__create__folder.open{
+    display: flex;
+}
+#from__delete{
+    display: inline-block;
+}
+.input-group{
+    width: unset;
+    margin-right: 30px;
+}
+#form__upload__files, #form__upload__directory{
+    display: none;
+}
+.edit-btn{
+    position: absolute;
+    bottom:0;
+    right: 0;
+}
+
+#popUp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    max-height: 70px;
+    max-width: 390px;
+    background: rgb(0 0 0 / 13%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    z-index: 10;
+}
+#popUp form{
+    display: flex;
+    align-items: center;
+}
+#popUp form button{
+    margin-bottom: 0 !important;
+    margin-left: 20px;
+}
+.list-group-item{
+    display: flex;
+    justify-content: space-between;
+}
+.directory__tree{
+    background: #e6e6e6;
+    padding: 5px 10px;
+}
+.main-page h1{
+    color: #fff;
+    font-size: 80px;
+    margin-top: 100px;
+    font-weight: bold;
+}
+.main-page h3{
+    color: #fff;
+}
+.profile-link{
+    margin-right: 30px;
+}
+.profile-link img{
+    margin-right: 10px;
+}

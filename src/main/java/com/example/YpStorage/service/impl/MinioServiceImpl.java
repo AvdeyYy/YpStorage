@@ -30,8 +30,8 @@ public class MinioServiceImpl implements MinioService {
     }
 
     @Override
-    public List<ObjectDto> getListObjects() {
-        return minioRepository.getListObjects();
+    public List<ObjectDto> getListObjects(String subdir) {
+        return minioRepository.getListObjects(subdir);
     }
 
     @Override

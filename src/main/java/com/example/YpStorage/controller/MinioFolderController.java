@@ -1,10 +1,8 @@
 package com.example.YpStorage.controller;
 
-import com.example.YpStorage.model.User;
 import com.example.YpStorage.service.impl.MinioServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;

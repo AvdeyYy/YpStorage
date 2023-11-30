@@ -2,6 +2,7 @@ package com.example.YpStorage.controller;
 
 import com.example.YpStorage.dto.ObjectDto;
 import com.example.YpStorage.service.MinioService;
+import com.example.YpStorage.util.MinioUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,16 +21,11 @@ public class MainController {
     private final MinioService minioService;
 
     @GetMapping("")
-    public String index(Model model,@RequestParam(value = "path",required = false) String path) {
+    public String index(Model model,@RequestParam(value = "path", defaultValue = "", required = false) String path) {
         List<ObjectDto> objectDtoList = minioService.getListObjects(path);
         model.addAttribute("objects", objectDtoList);
+        model.addAttribute("breadcrumbs", MinioUtils.getPathForBreadcrumb(path));
+        model.addAttribute("breadcrumbsFolder", MinioUtils.getPathForBreadcrumbFolders(path));
         return "main";
     }
-
-//    @GetMapping("/home")
-//    public String home(Model model, @RequestParam(value = "path",required = false) String path) {
-//        List<ObjectDto> objectDtoList = minioService.getListObjects(path);
-//        model.addAttribute("objects", objectDtoList);
-//        return "login";
-//    }
 }

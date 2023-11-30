@@ -1,7 +1,15 @@
 
-<nav aria-label="breadcrumb" th:fragment="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Library</li>
+<nav aria-label="breadcrumb" class="mb-4" th:fragment="breadcrumb">
+    <ol class="breadcrumb fs-4">
+        <li class="breadcrumb-item">
+            <a th:class="${breadcrumbs == null ? 'breadcrumb-item active' : ''}"
+               th:href="@{/}">Storage</a>
+        </li>
+        <li class="breadcrumb-item" th:each="link, iterStat : ${breadcrumbs}"
+            th:if="${!#strings.isEmpty(link)}">
+            <a th:class="${iterStat.last ? 'breadcrumb-item active' : 'breadcrumb-item'}"
+               th:href="${'/?path=' + link}"
+               th:text="${breadcrumbsFolder[iterStat.index]}"></a>
+        </li>
     </ol>
 </nav>

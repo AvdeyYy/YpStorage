@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,42 +54,10 @@ public class MinioRepository {
 
     }
 
-//2
-//    public List<ObjectDto> getListObjects(String path) {
-//        String username = UserUtils.getUserId() + path;
-//        Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder()
-//                        .bucket(bucketName)
-//                        .prefix(username)
-//                        .build());
-//        List<ObjectDto> objectDtoList = new ArrayList<>();
-//        results.forEach( itemResult -> {
-//            try {
-//                Item item = itemResult.get();
-//                System.out.println();
-//                ObjectDto objectDto = new ObjectDto(
-//                        username,
-//                        item.isDir(),
-//                        MinioUtils.removePrefix(item.objectName(),username),
-//                        MinioUtils.getFileName(path),
-//                        item.objectName()
-//                );
-//                objectDtoList.add(objectDto);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        });
-//        return objectDtoList;
-//    }
-
     public List<ObjectDto> getListObjects(String subdir) {
-         String username = UserUtils.getUserId();
-         if (subdir != null) {
-             username = subdir;
-         }
-
         Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder()
                 .bucket(bucketName)
-                .prefix(username)
+                .prefix(subdir)
                 .recursive(false)
                 .build());
         List<ObjectDto> objectDtoList = new ArrayList<>();
@@ -109,9 +76,6 @@ public class MinioRepository {
         });
         return objectDtoList;
     }
-
-
-
 
     public void removeObject(String path) {
         try {
@@ -152,6 +116,5 @@ public class MinioRepository {
             e.printStackTrace();
         }
     }
-
 
 }

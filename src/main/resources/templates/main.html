@@ -22,28 +22,36 @@
         </div>
 
         <!--Right Side-->
+
+<!--        <div class="col-8">-->
+<!--            <div class="p-3 border bg-light">-->
+<!--                <div th:insert="blocks/breadcrumb :: breadcrumb"></div>-->
+<!--                <div th:each="el : ${objects}">-->
+<!--                    <h5 th:text="${el.name}"></h5>-->
+<!--                    <div th:insert="blocks/edit-modal :: edit-modal"></div>-->
+<!--                </div>-->
         <div class="col-8">
             <div class="p-3 border bg-light">
                 <div th:insert="blocks/breadcrumb :: breadcrumb"></div>
                 <div th:each="el : ${objects}">
-                    <div th:if="el.isDir">
+<!--                    <div th:if="el.isDir">-->
                         <form th:action="@{/}" th:method="GET">
-                            <div class="me  dia position-relative">
-                                <!--                                                <img src="..." class="mr-3" alt="...">-->
-                                <div class="media-body">
+<!--                            <div class="media position-relative">-->
+<!--                                <div class="media-body">-->
                                     <h5 class="mt-0" th:text="${el.name}"></h5>
                                         <input name="path" th:value="${el.path}" type="hidden">
                                     <input type="submit" value="->">
-                                    <div th:insert="blocks/edit-modal :: edit-modal"></div>
-                                </div>
-                            </div>
+<!--                                </div>-->
+<!--                            </div>-->
                         </form>
+                        <div th:insert="blocks/edit-modal :: edit-modal"></div>
                     </div>
+
                 </div>
-                <div th:unless="el.isDir">
-                    <h5 class="mt-0" th:text="${el.name}"></h5>
-                    <div th:insert="blocks/edit-modal :: edit-modal"></div>
-                </div>
+<!--                <div th:unless="el.isDir">-->
+<!--                    <h5 class="mt-0" th:text="${el.name}"></h5>-->
+<!--                    <div th:insert="blocks/edit-modal :: edit-modal"></div>-->
+<!--                </div>-->
             </div>
         </div>
     </div>

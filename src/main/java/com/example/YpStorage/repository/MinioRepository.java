@@ -4,15 +4,20 @@ import com.example.YpStorage.dto.ObjectDto;
 import com.example.YpStorage.util.MinioUtils;
 import com.example.YpStorage.util.UserUtils;
 import io.minio.*;
+import io.minio.errors.*;
 import io.minio.messages.Item;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.*;
+import java.rmi.RemoteException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,11 +59,11 @@ public class MinioRepository {
 
     }
 
-    public List<ObjectDto> getListObjects(String subdir) {
+    public List<ObjectDto> getListObjects(String subdir, Boolean flag) {
         Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder()
                 .bucket(bucketName)
                 .prefix(subdir)
-                .recursive(false)
+                .recursive(flag)
                 .build());
         List<ObjectDto> objectDtoList = new ArrayList<>();
         results.forEach( itemResult -> {
@@ -88,17 +93,17 @@ public class MinioRepository {
         }
     }
 
-    public void downloadObject(String path){ //TO-DO
+    public InputStream downloadObject(String path) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException { //TO-DO
         try {
-            minioClient.getObject(GetObjectArgs.builder()
+            return minioClient.getObject(GetObjectArgs.builder()
                             .bucket(bucketName)
                             .object(path)
                     .build());
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Скачано");
+        } catch (Exception e ) {
+            throw new RuntimeException();
         }
     }
+
 
     public void renameObject(String pastPath, String futurePath){
         try {
